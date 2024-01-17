@@ -32,14 +32,14 @@ window.addEventListener('load', () => {
 // Обработчик клика по главной кнопке
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
     // Проверяем, что все поля заполнены
-    if (title && content && file) {
+    if (title.value && content.value && file.files[0]) {
         let result = {
-            title: title,
-            content: content,
+            title: title.value,
+            content: content.value,
             file_info: {
-                name: file.name,
-                type: file.type,
-                size: file.size
+                name: file.files[0].name,
+                type: file.files[0].type,
+                size: file.files[0].size
             }
         };
 
