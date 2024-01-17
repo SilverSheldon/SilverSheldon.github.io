@@ -12,10 +12,16 @@ let title = document.getElementById("title");
 let content = document.getElementById("content");
 let file = document.getElementById("file");
 
+let title_v = title.value;
+let content_v = content.value;
+let file_v = file.files[0];
+
 // Функция обновления состояния главной кнопки
-function updateMainButtonState() {
-    console.log(title.value, content.value, file.files[0]);
-    if (!title.value || !content.value || !file.files[0]) {
+function updateMainButtonState(e, type) {
+    if (type === "title") title_v = e.target.value;
+    if (type === "content") content_v = e.target.value;
+    if (type === "file") file_v = e.target.files[0];
+    if (!title_v || !content_v || !file_v) {
         tg.MainButton.hide(); // Скрываем кнопку, если поля не заполнены
     } else {
         console.log("here");
@@ -33,11 +39,9 @@ function updateMainButtonState() {
     }
 }
 
-window.addEventListener('load', () => {
-    title.addEventListener("change", updateMainButtonState);
-    content.addEventListener("change", updateMainButtonState);
-    file.addEventListener("change", updateMainButtonState);
-})
+title.addEventListener("change", (e) => updateMainButtonState(e, "title"));
+content.addEventListener("change", (e) => updateMainButtonState(e, "content"));
+file.addEventListener("change", (e) => updateMainButtonState(e, "file"));
 
 // Обработчик клика по главной кнопке
 // Telegram.WebApp.onEvent("mainButtonClicked", function() {
@@ -58,7 +62,7 @@ window.addEventListener('load', () => {
 //     }
 // });
 
-tg.MainButton.onClick(function() {
+tg.MainButton.addEventListener("click", function() {
     tg.showAlert("Хорошо, ты нажал на главную кнопку.");
   });
 
