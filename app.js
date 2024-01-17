@@ -1,6 +1,6 @@
 let tg = window.Telegram.WebApp;
 tg.expand(); // Расширяем веб-приложение
-
+Telegram.WebApp.ready();
 // Настройка внешнего вида главной кнопки
 tg.MainButton.text = "Отправить"; // Изменяем текст кнопки
 //tg.MainButton.setText("Создать пост"); // изменяем текст кнопки иначе
