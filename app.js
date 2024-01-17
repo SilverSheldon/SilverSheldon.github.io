@@ -62,7 +62,7 @@ file.addEventListener("change", (e) => updateMainButtonState(e, "file"));
 //     }
 // });
 
-tg.MainButton.addEventListener("click", function() {
+Telegram.WebApp.onEvent("mainButtonClicked", function() {
     tg.showAlert("Хорошо, ты нажал на главную кнопку.");
   });
 
