@@ -44,24 +44,6 @@ content.addEventListener("change", (e) => updateMainButtonState(e, "content"));
 file.addEventListener("change", (e) => updateMainButtonState(e, "file"));
 
 // Обработчик клика по главной кнопке
-// Telegram.WebApp.onEvent("mainButtonClicked", function() {
-//     // Проверяем, что все поля заполнены
-//     if (title.value && content.value && file.files[0]) {
-//         let result = {
-//             title: title.value,
-//             content: content.value,
-//             file_info: {
-//                 name: file.files[0].name,
-//                 type: file.files[0].type,
-//                 size: file.files[0].size
-//             }
-//         };
-
-//         // Отправляем данные в бота
-//         tg.sendData(JSON.stringify(result));
-//     }
-// });
-
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
     console.log("HERE!!");
     if (title.value && content.value && file.files[0]) {
@@ -76,6 +58,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", function() {
         };
         // Отправляем данные в бота
         tg.sendData(JSON.stringify(result));
+        tg.close();
     }
 });
 
