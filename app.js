@@ -19,6 +19,16 @@ function updateMainButtonState() {
         tg.MainButton.hide(); // Скрываем кнопку, если поля не заполнены
     } else {
         console.log("here");
+        let result = {
+            title: title.value,
+            content: content.value,
+            file_info: {
+                name: file.files[0].name,
+                type: file.files[0].type,
+                size: file.files[0].size
+            }
+        };
+        console.log(result, JSON.stringify(result));
         tg.MainButton.show(); // Показываем кнопку, если поля заполнены
     }
 }
