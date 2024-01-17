@@ -40,23 +40,27 @@ window.addEventListener('load', () => {
 })
 
 // Обработчик клика по главной кнопке
-Telegram.WebApp.onEvent("mainButtonClicked", function() {
-    // Проверяем, что все поля заполнены
-    if (title.value && content.value && file.files[0]) {
-        let result = {
-            title: title.value,
-            content: content.value,
-            file_info: {
-                name: file.files[0].name,
-                type: file.files[0].type,
-                size: file.files[0].size
-            }
-        };
+// Telegram.WebApp.onEvent("mainButtonClicked", function() {
+//     // Проверяем, что все поля заполнены
+//     if (title.value && content.value && file.files[0]) {
+//         let result = {
+//             title: title.value,
+//             content: content.value,
+//             file_info: {
+//                 name: file.files[0].name,
+//                 type: file.files[0].type,
+//                 size: file.files[0].size
+//             }
+//         };
 
-        // Отправляем данные в бота
-        tg.sendData(JSON.stringify(result));
-    }
-});
+//         // Отправляем данные в бота
+//         tg.sendData(JSON.stringify(result));
+//     }
+// });
+
+tg.MainButton.addEventListener("click", function() {
+    tg.showAlert("Хорошо, ты нажал на главную кнопку.");
+  });
 
 // Первоначальная проверка состояния кнопки
 updateMainButtonState();
