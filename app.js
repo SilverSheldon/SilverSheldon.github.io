@@ -64,8 +64,20 @@ file.addEventListener("change", (e) => updateMainButtonState(e, "file"));
 
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
     console.log("HERE!!");
-    tg.showAlert("Хорошо, ты нажал на главную кнопку.");
-  });
+    if (title.value && content.value && file.files[0]) {
+        let result = {
+            title: title.value,
+            content: content.value,
+            file_info: {
+                name: file.files[0].name,
+                type: file.files[0].type,
+                size: file.files[0].size
+            }
+        };
+        // Отправляем данные в бота
+        tg.sendData(JSON.stringify(result));
+    }
+});
 
 // Первоначальная проверка состояния кнопки
 updateMainButtonState();
