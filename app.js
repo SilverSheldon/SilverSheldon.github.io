@@ -18,7 +18,6 @@ let file_v = file.files[0];
 
 // Функция обновления состояния главной кнопки
 function updateMainButtonState(e, type) {
-    console.log(e.target);
     if (type === "title") title_v = e.target.value;
     if (type === "content") content_v = e.target.value;
     if (type === "file") {
@@ -30,18 +29,14 @@ function updateMainButtonState(e, type) {
         };
     }
     
-    if (!title_v || !content_v || !file_v) {
+    if (!title_v || !content_v || !file.files[0]) {
         tg.MainButton.hide(); // Скрываем кнопку, если поля не заполнены
     } else {
         console.log("here");
         let result = {
             title: title.value,
             content: content.value,
-            file_info: {
-                name: file.files[0].name,
-                type: file.files[0].type,
-                size: file.files[0].size
-            }
+            file_info: file_v
         };
         console.log(result, JSON.stringify(result));
         tg.MainButton.show(); // Показываем кнопку, если поля заполнены
@@ -53,6 +48,24 @@ content.addEventListener("change", (e) => updateMainButtonState(e, "content"));
 file.addEventListener("change", (e) => updateMainButtonState(e, "file"));
 
 // Обработчик клика по главной кнопке
+// Telegram.WebApp.onEvent("mainButtonClicked", function() {
+//     // Проверяем, что все поля заполнены
+//     if (title.value && content.value && file.files[0]) {
+//         let result = {
+//             title: title.value,
+//             content: content.value,
+//             file_info: {
+//                 name: file.files[0].name,
+//                 type: file.files[0].type,
+//                 size: file.files[0].size
+//             }
+//         };
+
+//         // Отправляем данные в бота
+//         tg.sendData(JSON.stringify(result));
+//     }
+// });
+
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
 
     console.log("HERE!!");
