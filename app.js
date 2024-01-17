@@ -8,36 +8,33 @@ tg.MainButton.textColor = "#FFFFFF"; // Цвет текста кнопки #F553
 tg.MainButton.color = "#2cab37"; // Цвет самой кнопки (бэкграунд) #143F6B
 // tg.MainButton.setParams({"color": "#143F6B"}); // так изменяются все параметры
 
+let title = document.getElementById("title");
+let content = document.getElementById("content");
+let file = document.getElementById("file");
+
 // Функция обновления состояния главной кнопки
 function updateMainButtonState() {
-    let title = document.getElementById("title").value;
-    let content = document.getElementById("content").value;
-    let file = document.getElementById("file").files[0];
-
-    if (!title || !content || !file) {
+    console.log(title.value, content.value, file.files[0]);
+    if (!title.value || !content.value || !file.files[0]) {
         tg.MainButton.hide(); // Скрываем кнопку, если поля не заполнены
     } else {
+        console.log("here");
         tg.MainButton.show(); // Показываем кнопку, если поля заполнены
     }
 }
 
 // Добавляем слушатели на изменения полей формы
-document.getElementById("title").addEventListener("input", updateMainButtonState);
-document.getElementById("content").addEventListener("input", updateMainButtonState);
-document.getElementById("file").addEventListener("change", updateMainButtonState);
+title.addEventListener("change", updateMainButtonState);
+content.addEventListener("change", updateMainButtonState);
+file.addEventListener("change", updateMainButtonState);
 
 // Обработчик клика по главной кнопке
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
-    let title = document.getElementById("title").value;
-    let content = document.getElementById("content").value;
-    let file = document.getElementById("file").files[0];
-
     // Проверяем, что все поля заполнены
     if (title && content && file) {
         let result = {
             title: title,
             content: content,
-            // Информация о файле
             file_info: {
                 name: file.name,
                 type: file.type,
