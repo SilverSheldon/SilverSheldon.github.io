@@ -58,7 +58,7 @@ window.addEventListener('load', () => {
 //     }
 // });
 
-tg.MainButton.addEventListener("click", function() {
+tg.MainButton.onClick(function() {
     tg.showAlert("Хорошо, ты нажал на главную кнопку.");
   });
 
