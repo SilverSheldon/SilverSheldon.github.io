@@ -21,12 +21,15 @@ function updateMainButtonState(e, type) {
     if (type === "title") title_v = e.target.value;
     if (type === "content") content_v = e.target.value;
     if (type === "file") {
-        const reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0]);
-        reader.onload = (e) => {
-          console.log(e.target.result);
-          file_v = e.target.result;
-        };
+        // const reader = new FileReader();
+        // reader.readAsDataURL(e.target.files[0]);
+        // reader.onload = (e) => {
+        //   console.log(e);
+        //   file_v = e.target.result;
+        // };
+        const url = URL.createObjectURL(e.target.files[0]);
+        console.log(url);
+        file_v = url;
     }
     
     if (!title_v || !content_v || !file.files[0]) {
@@ -42,17 +45,13 @@ file.addEventListener("change", (e) => updateMainButtonState(e, "file"));
 
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
     if (title.value && content.value && file.files[0]) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.files[0]);
-        reader.onload = (e) => {
-            let result = {
-                title: title.value,
-                content: content.value,
-                file_info: e.target.result
-            };
-            tg.sendData(JSON.stringify(result));
-            tg.close();
+        let result = {
+            title: title.value,
+            content: content.value,
+            file_url: file_v
         };
+        tg.sendData(JSON.stringify(result));
+        tg.close();
     }
   });
 
