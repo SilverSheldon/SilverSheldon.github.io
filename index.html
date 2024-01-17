@@ -1,18 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="theme-color" content="#000000"/>
-    <link rel="stylesheet" href="style.css"/>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="app.js"></script>
-    <title>Form app</title>
-</head>
-<body>
-    <form>
-      <input type="text" placeholder="Название поста" id="title"/>
-      <textarea placeholder="Содержимое поста" id="content"></textarea>
-    </form>
-</body>
+<html>
+    <head>
+        <title>Форма Поста</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    </head>
+    <body>
+        <div class="form-container">
+            <form id="postForm">
+                <div class="form-group">
+                    <input type="text" id="postTitle" name="postTitle" required placeholder="Введите название поста">
+                </div>
+                <div class="form-group">
+                    <textarea id="postContent" name="postContent" required placeholder="Введите содержимое поста"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="file" id="postFile" name="postFile">
+                </div>
+            </form>
+        </div>
+        <script src="app.js"></script>
+    </body>
 </html>

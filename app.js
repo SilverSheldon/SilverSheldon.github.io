@@ -1,28 +1,43 @@
 let tg = window.Telegram.WebApp;
-tg.expand();
-tg.MainButton.text = "Отправить"; // изменяем текст кнопки
-//tg.MainButton.setText("Создать пост"); // изменяем текст кнопки иначе
-tg.MainButton.textColor = "#FFFFFF"; // Цвет текста кнопки #F55353
-tg.MainButton.color = "#2cab37"; // Цвет самой кнопки (бэкграунд) #143F6B
-// tg.MainButton.setParams({"color": "#143F6B"}); // так изменяются все параметры
+tg.expand(); // Расширяем веб-приложение
 
-//tg.MainButton.hide();
-// Если форма незаполнена - скрывать главную кнопку+
+// Настройка внешнего вида главной кнопки
+tg.MainButton.text = "Отправить"; // Изменяем текст кнопки
+tg.MainButton.textColor = "#FFFFFF"; // Цвет текста кнопки
+tg.MainButton.color = "#2cab37"; // Цвет фона кнопки
 
-let title = document.getElementById("title").value;
-let content = document.getElementById("content").value;
-
-if(!title || !content){
-    tg.MainButton.hide();
-} else {
-    tg.MainButton.show();
+// Обновляем состояние главной кнопки на основе ввода пользователя
+function updateMainButtonState() {
+    let title = document.getElementById("postTitle").value;
+    let content = document.getElementById("postContent").value;
+    if (!title || !content) {
+        tg.MainButton.hide(); // Если поля не заполнены, скрываем кнопку
+    } else {
+        tg.MainButton.show(); // Если поля заполнены, показываем кнопку
+    }
 }
 
-let result = {
-    title: title,
-    content: content
-}
+// Слушаем изменения в полях ввода
+document.getElementById("postTitle").addEventListener("input", updateMainButtonState);
+document.getElementById("postContent").addEventListener("input", updateMainButtonState);
 
-Telegram.WebApp.onEvent("mainButtonClicked", function() {
+// Функция для отправки данных
+function sendDataToBot() {
+    let title = document.getElementById("postTitle").value;
+    let content = document.getElementById("postContent").value;
+
+    // Формируем объект с данными
+    let result = {
+        title: title,
+        content: content
+    };
+    
+    // Отправляем данные в бота
     tg.sendData(JSON.stringify(result));
-});
+}
+
+// Обработчик нажатия на главную кнопку
+tg.onEvent('mainButtonClicked', sendDataToBot);
+
+// Первоначальная проверка состояния формы
+updateMainButtonState();
