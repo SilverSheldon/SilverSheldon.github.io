@@ -37,7 +37,4 @@ function sendDataToBot() {
 }
 
 // Обработчик нажатия на главную кнопку
-tg.onEvent('mainButtonClicked', sendDataToBot);
-
-// Первоначальная проверка состояния формы
-updateMainButtonState();
+Telegram.WebApp.onEvent('mainButtonClicked', sendDataToBot);
