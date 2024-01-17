@@ -23,10 +23,11 @@ function updateMainButtonState() {
     }
 }
 
-// Добавляем слушатели на изменения полей формы
-title.addEventListener("change", updateMainButtonState);
-content.addEventListener("change", updateMainButtonState);
-file.addEventListener("change", updateMainButtonState);
+window.addEventListener('load', () => {
+    title.addEventListener("change", updateMainButtonState);
+    content.addEventListener("change", updateMainButtonState);
+    file.addEventListener("change", updateMainButtonState);
+})
 
 // Обработчик клика по главной кнопке
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
