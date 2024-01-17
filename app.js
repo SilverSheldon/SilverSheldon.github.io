@@ -45,7 +45,7 @@ file.addEventListener("change", (e) => updateMainButtonState(e, "file"));
 
 // Обработчик клика по главной кнопке
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
-    const formData = new FormData;
+    const formData = new FormData();
     formData.append("title", title_v);
     formData.append("content", content_v);
     formData.append("file", file_v);
