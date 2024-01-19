@@ -1,6 +1,7 @@
 let tg = window.Telegram.WebApp;
-tg.expand(); // Расширяем веб-приложение
 Telegram.WebApp.ready();
+tg.expand(); // Расширяем веб-приложение
+
 // Настройка внешнего вида главной кнопки
 tg.MainButton.text = "Отправить"; // Изменяем текст кнопки
 //tg.MainButton.setText("Создать пост"); // изменяем текст кнопки иначе
@@ -20,18 +21,8 @@ let file_v = file.files[0];
 function updateMainButtonState(e, type) {
     if (type === "title") title_v = e.target.value;
     if (type === "content") content_v = e.target.value;
-    if (type === "file") {
-        // const reader = new FileReader();
-        // reader.readAsDataURL(e.target.files[0]);
-        // reader.onload = (e) => {
-        //   console.log(e);
-        //   file_v = e.target.result;
-        // };
-        const url = URL.createObjectURL(e.target.files[0]);
-        console.log(url);
-        file_v = url;
-    }
-    
+    if (type === "file") file_v = URL.createObjectURL(e.target.files[0]);
+
     if (!title_v || !content_v || !file.files[0]) {
         tg.MainButton.hide(); // Скрываем кнопку, если поля не заполнены
     } else {
@@ -39,8 +30,8 @@ function updateMainButtonState(e, type) {
     }
 }
 
-title.addEventListener("change", (e) => updateMainButtonState(e, "title"));
-content.addEventListener("change", (e) => updateMainButtonState(e, "content"));
+title.addEventListener("input", (e) => updateMainButtonState(e, "title"));
+content.addEventListener("input", (e) => updateMainButtonState(e, "content"));
 file.addEventListener("change", (e) => updateMainButtonState(e, "file"));
 
 Telegram.WebApp.onEvent("mainButtonClicked", function() {
